@@ -1,52 +1,59 @@
-# Sheets Wizard
+# 📊 Sheets Wizard
 
-A Model Context Protocol (MCP) server for Google Sheets automation. Create spreadsheets, read and write data, add formulas, create charts, and export to CSV.
+**AI-powered Google Sheets automation - create spreadsheets, read and write data, add formulas, create charts, and export to CSV**
 
-## Overview
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MCP](https://img.shields.io/badge/MCP-Compatible-green)](https://github.com/anthropics/mcp)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js)](https://nodejs.org/)
+[![Google Sheets](https://img.shields.io/badge/Google%20Sheets-Compatible-34A853?logo=google-sheets)](https://sheets.google.com/)
 
-Sheets Wizard brings Google Sheets into your AI workflow. Create spreadsheets, manipulate data, add formulas and charts, all through natural language.
+---
 
-### Why Use Sheets Wizard?
+## 🤔 The Spreadsheet Challenge
 
-**Traditional workflow:**
-- Open Google Sheets in browser
-- Manually navigate and click through UI
-- Write formulas one cell at a time
-- Export manually for data analysis
+**"Manual spreadsheet work is tedious and repetitive"**
 
-**With Sheets Wizard:**
-```
-"Create a new spreadsheet for Q4 expenses"
-"Get all data from the Sales sheet"
-"Update cells A1:B10 with the monthly totals"
-"Add a SUM formula for the revenue column"
-"Create a bar chart from the sales data"
-```
+Creating reports, updating data, adding formulas - each task requires navigating through Google Sheets UI.
 
-## Features
+- 🖱️ Manually clicking through menus
+- 📝 Writing formulas one cell at a time
+- 📊 Creating charts with many clicks
+- 📤 Exporting data manually
 
-- **Spreadsheet Creation** - Create new Google Spreadsheets
-- **Data Reading** - Retrieve data from any range
-- **Data Writing** - Update cells with values
-- **Formula Support** - Add formulas to cells
-- **Chart Creation** - Create various chart types
-- **CSV Export** - Export sheets as CSV format
+**Sheets Wizard brings Google Sheets to your conversation** - create, update, and analyze spreadsheets through natural language.
 
-## Installation
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---------|-------------|
+| 📄 **Spreadsheet Creation** | Create new Google Spreadsheets |
+| 📖 **Data Reading** | Retrieve data from any range |
+| ✏️ **Data Writing** | Update cells with values |
+| 🔢 **Formula Support** | Add formulas to cells |
+| 📊 **Chart Creation** | Create various chart types |
+| 📤 **CSV Export** | Export sheets as CSV format |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- Google Cloud account with Sheets API enabled
+- OAuth 2.0 credentials
+- Claude Desktop
+
+### Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/consigcody94/sheets-wizard.git
 cd sheets-wizard
-
-# Install dependencies
 npm install
-
-# Build the project
 npm run build
 ```
-
-## Configuration
 
 ### Google Cloud Setup
 
@@ -65,28 +72,20 @@ npm run build
 
 ### Getting OAuth Tokens
 
-After creating OAuth credentials, you need to get access tokens:
-
 1. Use the OAuth 2.0 Playground or your own OAuth flow
-2. Authorize with scopes: `https://www.googleapis.com/auth/spreadsheets`
+2. Authorize with scope: `https://www.googleapis.com/auth/spreadsheets`
 3. Exchange authorization code for tokens
-4. Save access_token and refresh_token
+4. Save `access_token` and `refresh_token`
 
-### Credentials Format
+### Configure Claude Desktop
 
-```json
-{
-  "client_id": "your-client-id.apps.googleusercontent.com",
-  "client_secret": "your-client-secret",
-  "redirect_uri": "your-redirect-uri",
-  "access_token": "ya29.your-access-token",
-  "refresh_token": "1//your-refresh-token"
-}
-```
+Add to your config file:
 
-### Claude Desktop Integration
-
-Add to your `claude_desktop_config.json`:
+| Platform | Path |
+|----------|------|
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+| Linux | `~/.config/Claude/claude_desktop_config.json` |
 
 ```json
 {
@@ -99,32 +98,80 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-**Config file locations:**
-- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
-- Linux: `~/.config/Claude/claude_desktop_config.json`
+### Restart Claude Desktop
+Completely quit and reopen Claude Desktop to load the MCP server.
 
-## Tools Reference
+---
+
+## 💬 Usage Examples
+
+### Create Spreadsheets
+```
+"Create a new spreadsheet for Q4 expenses"
+→ Creates spreadsheet and returns ID and URL
+
+"Make a new budget tracking sheet"
+→ Creates empty spreadsheet ready for data
+```
+
+### Read and Write Data
+```
+"Get all data from the Sales sheet"
+→ Returns 2D array of values from the range
+
+"Update cells A1:B10 with the monthly totals"
+→ Writes data to specified range
+```
+
+### Add Formulas
+```
+"Add a SUM formula for the revenue column"
+→ Adds =SUM(B2:B100) to calculate totals
+
+"Create an AVERAGE formula for column C"
+→ Adds formula to calculate averages
+```
+
+### Create Charts
+```
+"Create a bar chart from the sales data"
+→ Creates COLUMN chart from specified range
+
+"Add a pie chart showing the budget breakdown"
+→ Creates PIE chart visualization
+```
+
+### Export Data
+```
+"Export the report sheet as CSV"
+→ Returns CSV content for download/processing
+```
+
+---
+
+## 🛠️ Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `create_sheet` | Create a new Google Spreadsheet |
+| `get_data` | Retrieve data from a spreadsheet range |
+| `update_cells` | Update cells in a spreadsheet range |
+| `add_formula` | Add a formula to a cell or range |
+| `create_chart` | Create a chart in the spreadsheet |
+| `export_csv` | Export a sheet as CSV format |
+
+---
+
+## 📊 Tool Details
 
 ### create_sheet
 
 Create a new Google Spreadsheet.
 
-**Parameters:**
-
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `title` | string | Yes | Spreadsheet title |
 | `credentials` | string | Yes | JSON string of OAuth credentials |
-
-**Example:**
-
-```json
-{
-  "title": "Q4 2024 Budget",
-  "credentials": "{\"client_id\":\"...\",\"client_secret\":\"...\",\"access_token\":\"...\",\"refresh_token\":\"...\"}"
-}
-```
 
 **Response includes:**
 - Spreadsheet ID (for future operations)
@@ -135,41 +182,21 @@ Create a new Google Spreadsheet.
 
 Retrieve data from a spreadsheet range.
 
-**Parameters:**
-
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `spreadsheetId` | string | Yes | Spreadsheet ID |
 | `range` | string | Yes | A1 notation range |
 | `credentials` | string | Yes | OAuth credentials |
 
-**Example:**
-
-```json
-{
-  "spreadsheetId": "1abc123def456",
-  "range": "Sheet1!A1:D10",
-  "credentials": "{...}"
-}
-```
-
 **A1 Notation examples:**
 - `Sheet1!A1:D10` - Specific range on Sheet1
 - `Sheet1!A:D` - Columns A through D
 - `Sheet1!1:10` - Rows 1 through 10
 - `A1:D10` - Range on first sheet
-- `Sheet1` - Entire sheet
-
-**Response includes:**
-- Range retrieved
-- 2D array of values
-- Row count
 
 ### update_cells
 
 Update cells in a spreadsheet range.
-
-**Parameters:**
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
@@ -178,32 +205,9 @@ Update cells in a spreadsheet range.
 | `values` | string[][] | Yes | 2D array of values |
 | `credentials` | string | Yes | OAuth credentials |
 
-**Example:**
-
-```json
-{
-  "spreadsheetId": "1abc123def456",
-  "range": "Sheet1!A1:C3",
-  "values": [
-    ["Name", "Revenue", "Growth"],
-    ["Product A", "50000", "15%"],
-    ["Product B", "75000", "22%"]
-  ],
-  "credentials": "{...}"
-}
-```
-
-**Response includes:**
-- Updated range
-- Rows updated
-- Columns updated
-- Total cells updated
-
 ### add_formula
 
 Add a formula to a cell or range.
-
-**Parameters:**
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
@@ -212,30 +216,16 @@ Add a formula to a cell or range.
 | `formula` | string | Yes | Formula (include `=`) |
 | `credentials` | string | Yes | OAuth credentials |
 
-**Example:**
-
-```json
-{
-  "spreadsheetId": "1abc123def456",
-  "range": "Sheet1!D1",
-  "formula": "=SUM(B2:B100)",
-  "credentials": "{...}"
-}
-```
-
 **Common formulas:**
 - `=SUM(A1:A10)` - Sum of range
 - `=AVERAGE(B1:B10)` - Average
 - `=COUNT(C1:C10)` - Count numbers
 - `=IF(A1>100,"High","Low")` - Conditional
 - `=VLOOKUP(A1,B:C,2,FALSE)` - Lookup
-- `=CONCATENATE(A1," ",B1)` - Join text
 
 ### create_chart
 
 Create a chart in the spreadsheet.
-
-**Parameters:**
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
@@ -253,28 +243,9 @@ Create a chart in the spreadsheet.
 - `AREA` - Area chart
 - `SCATTER` - Scatter plot
 
-**Example:**
-
-```json
-{
-  "spreadsheetId": "1abc123def456",
-  "sheetId": 0,
-  "chartType": "COLUMN",
-  "sourceRange": "Sheet1!A1:B10",
-  "credentials": "{...}"
-}
-```
-
-**Response includes:**
-- Chart type created
-- Success confirmation
-- Spreadsheet ID
-
 ### export_csv
 
 Export a sheet as CSV format.
-
-**Parameters:**
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
@@ -282,36 +253,23 @@ Export a sheet as CSV format.
 | `sheetId` | number | Yes | Sheet ID to export |
 | `credentials` | string | Yes | OAuth credentials |
 
-**Example:**
+---
 
-```json
-{
-  "spreadsheetId": "1abc123def456",
-  "sheetId": 0,
-  "credentials": "{...}"
-}
-```
-
-**Response includes:**
-- CSV content as string
-- Row count
-- Sheet title
-
-## Finding IDs
+## 🔑 Finding IDs
 
 ### Spreadsheet ID
-
 From URL: `https://docs.google.com/spreadsheets/d/1abc123def456/edit`
 
 The ID is: `1abc123def456`
 
 ### Sheet ID
-
 - First sheet is usually `0`
-- Use `get_data` on the sheet to verify
-- Or check sheet properties in Sheets UI
+- Check sheet properties in Sheets UI
+- Or use API to list sheets
 
-## Workflow Examples
+---
+
+## 🎯 Workflow Examples
 
 ### Creating a Report
 
@@ -358,31 +316,9 @@ The ID is: `1abc123def456`
    export_csv with sheetId: 0, ...
    ```
 
-### Budget Tracking
+---
 
-1. **Create budget sheet:**
-   ```
-   create_sheet with title: "2024 Budget", ...
-   ```
-
-2. **Set up categories:**
-   ```
-   update_cells with range: "A1:B5", values: [["Category", "Amount"], ["Rent", "2000"], ...], ...
-   ```
-
-3. **Add total formula:**
-   ```
-   add_formula with range: "B10", formula: "=SUM(B2:B9)", ...
-   ```
-
-4. **Create pie chart:**
-   ```
-   create_chart with chartType: "PIE", sourceRange: "A2:B9", ...
-   ```
-
-## API Quotas
-
-Google Sheets API has usage limits:
+## ⚡ API Quotas
 
 | Quota | Limit |
 |-------|-------|
@@ -390,60 +326,62 @@ Google Sheets API has usage limits:
 | Write requests | 300/minute per project |
 | Per-user limit | 60/minute |
 
-If you hit limits:
+**If you hit limits:**
 - Wait 60 seconds
 - Batch multiple updates into single requests
 - Use larger ranges instead of cell-by-cell
 
-## Requirements
+---
+
+## 🔒 Security Notes
+
+| Principle | Description |
+|-----------|-------------|
+| Never commit credentials | Keep tokens out of version control |
+| Tokens expire | Access tokens expire (~1 hour) |
+| Store securely | Refresh tokens should be stored securely |
+| Minimum scopes | Use only required OAuth scopes |
+
+---
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "Invalid credentials" | Verify OAuth credentials format, check token expiry |
+| "Spreadsheet not found" | Verify spreadsheet ID, check access permissions |
+| "Range not found" | Verify sheet name (case-sensitive), check A1 notation |
+| Token refresh issues | Include refresh_token, verify client_id and client_secret |
+
+---
+
+## 📋 Requirements
 
 - Node.js 18 or higher
 - Google Cloud account
 - Sheets API enabled
 - OAuth 2.0 credentials with valid tokens
 
-## Troubleshooting
+---
 
-### "Invalid credentials"
-
-1. Verify OAuth credentials are correctly formatted
-2. Check access_token hasn't expired
-3. Ensure refresh_token is included for auto-refresh
-
-### "Spreadsheet not found"
-
-1. Verify spreadsheet ID is correct
-2. Ensure credentials have access to the spreadsheet
-3. Check if spreadsheet is shared with the OAuth client
-
-### "Range not found"
-
-1. Verify sheet name is correct (case-sensitive)
-2. Check range format uses A1 notation
-3. Ensure range exists in the spreadsheet
-
-### Token refresh issues
-
-1. Include refresh_token in credentials
-2. Verify client_id and client_secret are correct
-3. Check OAuth consent screen is properly configured
-
-## Security Notes
-
-- Never commit credentials to version control
-- Access tokens expire (usually 1 hour)
-- Refresh tokens should be stored securely
-- Use minimum required OAuth scopes
-- Rotate credentials periodically
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Author
+---
 
-consigcody94
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+---
+
+## 👤 Author
+
+**consigcody94**
+
+---
+
+<p align="center">
+  <i>Spreadsheet magic at your command.</i>
+</p>
